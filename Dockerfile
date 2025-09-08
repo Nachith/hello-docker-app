@@ -1,4 +1,4 @@
-# Base image with Python
+# Base image
 FROM ubuntu:24.04
 
 # Install dependencies
@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     x11vnc \
     novnc \
     websockify \
-    libgl1-mesa-glx \
+    libgl1 \
     libxkbcommon0 \
     libxrender1 \
     libxext6 \
