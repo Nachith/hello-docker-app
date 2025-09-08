@@ -1,8 +1,9 @@
+# Use Ubuntu 22.04 LTS
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies
+# Install system dependencies including Qt xcb libraries
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
@@ -13,16 +14,28 @@ RUN apt-get update && apt-get install -y \
     websockify \
     libgl1 \
     libegl1 \
-    libxkbcommon0 \
     libxrender1 \
     libxext6 \
     libx11-6 \
+    libxcb1 \
+    libxcb-cursor0 \
+    libxcb-keysyms1 \
+    libxcb-image0 \
+    libxcb-render0 \
+    libxcb-render-util0 \
+    libxcb-shape0 \
+    libxcb-randr0 \
+    libxcb-xfixes0 \
+    libxcb-shm0 \
+    libxcb-xinerama0 \
+    libxcb-xkb1 \
+    libxkbcommon-x11-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Copy application code
+# Copy app code
 COPY app.py .
 COPY requirements.txt .
 
