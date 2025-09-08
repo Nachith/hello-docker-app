@@ -1,10 +1,8 @@
-# Use Ubuntu 22.04 LTS
 FROM ubuntu:22.04
 
-# Prevent interactive prompts during package install
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
@@ -14,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     novnc \
     websockify \
     libgl1 \
+    libegl1 \
     libxkbcommon0 \
     libxrender1 \
     libxext6 \
@@ -23,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy app code
+# Copy application code
 COPY app.py .
 COPY requirements.txt .
 
@@ -33,7 +32,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Expose noVNC port
 EXPOSE 6080
 
-# Start X virtual framebuffer, window manager, VNC server, noVNC, and run the app
+# Start Xvfb, fluxbox, x11vnc, noVNC, and the PySide6 app
 CMD bash -c "\
 Xvfb :1 -screen 0 1024x768x16 & \
 fluxbox & \
