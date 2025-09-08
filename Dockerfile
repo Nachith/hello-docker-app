@@ -11,7 +11,9 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libxrandr2 \
     libxi6 \
+    libxkbcommon0 \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Set working directory
 WORKDIR /app
