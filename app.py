@@ -1,21 +1,20 @@
 import sys
-from PySide6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout,QGridLayout
+from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout
 
+class HelloWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Hello Docker GUI 🚀")
+        self.setGeometry(200, 200, 300, 150)
 
-app = QApplication(sys.argv)
+        layout = QVBoxLayout()
+        label = QLabel("Hello from PySide6 inside Docker!")
+        label.setStyleSheet("font-size: 18px; font-weight: bold; color: green;")
+        layout.addWidget(label)
+        self.setLayout(layout)
 
-window = QWidget()
-window.setWindowTitle("Simple Pyside6 App")
-
-layout = QGridLayout()
-label = QLabel("Hello, PySide6!")
-layout.addWidget(label, 0, 0)
-
-button = QPushButton("Click Me")
-layout.addWidget(button, 1, 0)
-
-window.setLayout(layout)
-window.show()
-window.showMaximized()
-
-sys.exit(app.exec())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = HelloWindow()
+    window.show()
+    sys.exit(app.exec())

@@ -1,23 +1,20 @@
-#Use pyhton base image
+# Use lightweight Python base image
+FROM python:3.9-slim
 
-FROM python:3.11-slim
-
-#install dependencies for GUI (x11 support)
-
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    libxkbcommon-x11-0 \
-    libxcb-cursor0 \
     libgl1 \
+    libx11-6 \
     && rm -rf /var/lib/apt/lists/*
 
-#set working directory
+# Install PySide6
+RUN pip install PySide6
+
+# Set working directory
 WORKDIR /app
 
-#copy files
-COPY requirement.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Copy code into container
 COPY app.py .
 
-#run the app
+# Default command
 CMD ["python", "app.py"]
