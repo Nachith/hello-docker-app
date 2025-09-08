@@ -1,10 +1,10 @@
 FROM python:3.11
 
-# Install required packages
+# Install system packages
 RUN apt-get update && apt-get install -y \
     python3-pip \
     x11-apps \
-    libgl1-mesa-glx \
+    libgl1 \
     libegl1 \
     libx11-6 \
     libxext6 \
@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python packages
+# Install PySide6
 RUN pip install PySide6
 
 # Set working directory
@@ -29,10 +29,10 @@ COPY gui_calculator.py .
 RUN wget https://github.com/novnc/noVNC/archive/refs/heads/master.zip -O novnc.zip && \
     unzip novnc.zip && mv noVNC-master /opt/noVNC && rm novnc.zip
 
-# Expose port for noVNC
+# Expose noVNC web port
 EXPOSE 6080
 
-# Start Xvfb + x11vnc + noVNC and your app
+# Start Xvfb + x11vnc + noVNC + Python GUI
 CMD bash -c "\
     Xvfb :1 -screen 0 1024x768x16 & \
     export DISPLAY=:1 && \
