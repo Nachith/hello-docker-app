@@ -1,5 +1,8 @@
-# Base image
-FROM ubuntu:24.04
+# Use Ubuntu 22.04 LTS
+FROM ubuntu:22.04
+
+# Prevent interactive prompts during package install
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -30,7 +33,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Expose noVNC port
 EXPOSE 6080
 
-# Start X virtual framebuffer, window manager, VNC server, and noVNC
+# Start X virtual framebuffer, window manager, VNC server, noVNC, and run the app
 CMD bash -c "\
 Xvfb :1 -screen 0 1024x768x16 & \
 fluxbox & \
