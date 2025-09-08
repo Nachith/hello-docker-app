@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-# Install dependencies for PySide6 and XCB
+# Install all dependencies required for PySide6 and XCB
 RUN apt-get update && apt-get install -y \
     libgl1 \
     libgl1-mesa-glx \
@@ -9,10 +9,18 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender1 \
     libxcb1 \
-    libxkbcommon0 \
-    libdbus-1-3 \
     libxcb-xinerama0 \
     libxcb-cursor0 \
+    libxcb-keysyms1 \
+    libxcb-image0 \
+    libxcb-icccm4 \
+    libxcb-sync1 \
+    libxcb-randr0 \
+    libxcb-shape0 \
+    libxcb-shm0 \
+    libxcb-util1 \
+    libxkbcommon0 \
+    libdbus-1-3 \
     xvfb \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,5 +31,5 @@ RUN pip install PySide6
 WORKDIR /app
 COPY app.py .
 
-# Run app inside Xvfb
+# Run PySide6 app inside a virtual framebuffer (headless)
 CMD ["xvfb-run", "-a", "python", "app.py"]
