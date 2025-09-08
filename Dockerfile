@@ -1,10 +1,15 @@
 # Use lightweight Python base image
 FROM python:3.9-slim
 
-# Install dependencies
+# Install system dependencies required for PySide6
 RUN apt-get update && apt-get install -y \
     libgl1 \
     libx11-6 \
+    libxext6 \
+    libxrender1 \
+    libxcb1 \
+    libxkbcommon0 \
+    libdbus-1-3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PySide6
