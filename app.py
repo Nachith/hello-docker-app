@@ -1,4 +1,9 @@
 import sys
+import os
+
+# Force Qt to use offscreen platform
+os.environ["QT_QPA_PLATFORM"] = "offscreen"
+
 from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout
 
 class HelloWindow(QWidget):
@@ -9,7 +14,6 @@ class HelloWindow(QWidget):
 
         layout = QVBoxLayout()
         label = QLabel("Hello from PySide6 inside Docker!")
-        label.setStyleSheet("font-size: 18px; font-weight: bold; color: green;")
         layout.addWidget(label)
         self.setLayout(layout)
 
@@ -17,4 +21,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = HelloWindow()
     window.show()
+
+    # Take screenshot of the window as proof it ran
+    pixmap = window.grab()
+    pixmap.save("/app/screenshot.png")
+
     sys.exit(app.exec())
