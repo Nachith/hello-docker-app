@@ -1,7 +1,11 @@
-FROM python:3.11
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY app.py /app.py
+COPY calculator.py .
+COPY requirements.txt .
 
-CMD ["python", "/app.py"]
+#Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "calculator.py"]
